@@ -59,6 +59,7 @@ module Isimud
     # @see TestClient#subscribe
     def observe_events(client, refresh_bindings = true)
       return unless enable_listener?
+      log "Isimud::EventObserver:observe_events refresh_bindings = #{refresh_bindings}"
       queue = (refresh_bindings || client.kind_of?(Isimud::TestClient)) ? create_queue(client) : client.find_queue(event_queue_name)
       client.subscribe(queue) do |message|
         event = Event.parse(message)
