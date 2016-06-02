@@ -87,6 +87,8 @@ module Isimud
       @observer_mutex      = Mutex.new
       @error_counter_mutex = Mutex.new
       @status              = STATUS_INITIALIZE
+
+      log "EventListener:initialize @status #{@status}"
     end
 
     # Run the daemon process. This creates the event, error counter, and shutdown threads
