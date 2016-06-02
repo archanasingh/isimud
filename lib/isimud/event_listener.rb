@@ -159,19 +159,19 @@ module Isimud
     end
 
     def initializing?
-      status == STATUS_INITIALIZE
+      @status == STATUS_INITIALIZE
     end
 
     def running?
-      status == STATUS_RUNNING
+      @status == STATUS_RUNNING
     end
 
     def running
-      status != STATUS_SHUTDOWN
+      @status != STATUS_SHUTDOWN
     end
 
     def shutdown?
-      status == STATUS_SHUTDOWN
+      @status == STATUS_SHUTDOWN
     end
 
     def start_event_thread
@@ -246,6 +246,8 @@ module Isimud
     def register_observer(observer)
       @observer_mutex.synchronize do
         log "EventListener: registering observer #{observer.class} #{observer.id}"
+        log "EventListener#register_observer initializing? = #{initializing?}"
+        log "EventListener#register_observer @status = #{@status}"
         @observers[observer_key_for(observer.class, observer.id)] = observer.observe_events(client, initializing?)
       end
     end
